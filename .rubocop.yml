@@ -5,3 +5,6 @@ Layout/LineLength:
   Max: 100
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+Style/ModuleFunction:
+  Exclude:
+   - lib/rubydium/config.rb
