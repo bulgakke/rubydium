@@ -55,7 +55,7 @@ module Rubydium
       return unless text
 
       command = text.split.grep(COMMAND_REGEXP).first
-      command&.delete_suffix(config.bot_username)
+      command&.delete_suffix("@#{config.bot_username}")
     end
   end
 end
