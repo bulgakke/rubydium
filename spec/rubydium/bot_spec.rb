@@ -1,25 +1,18 @@
+# frozen_string_literal: true
+
 RSpec.describe Rubydium::Bot do
-  let(:test_bot_class) do
-    bot_class = Class.new(Rubydium::Bot)
-    bot_class.configure do |config|
-      config.bot_username = "@yourbot"
-    end
-    bot_class
-  end
+  let(:message) { create_message(text: "/start") }
   let(:client) { instance_double(Telegram::Bot::Client) }
-  let(:update) do
-    data = { message: { text: "/test_command" } }
-    Telegram::Bot::Types::Update.new(data).current_message
-  end
+  let(:bot_class) { create_bot_class }
   let(:bot) do
-    allow(client).to receive(:api)
-    test_bot_class.new(client, update)
+    allow(client).to receive :api
+    bot_class.new(client, message)
   end
 
   describe "#help_message" do
     it "forms list of commands with descriptions" do
-      test_bot_class.on_command "/start", :some_method, description: "Says hello"
-      test_bot_class.on_command "/help", :some_method, description: "Shows help message"
+      bot_class.on_command "/start", :some_method, description: "Says hello"
+      bot_class.on_command "/help", :some_method, description: "Shows help message"
 
       help = bot.send(:help_message)
       expect(help).to eq <<~MSG.strip

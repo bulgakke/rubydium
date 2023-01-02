@@ -25,6 +25,22 @@ RSpec.configure do |config|
     FileUtils.rm_rf Dir.glob("#{TEMP_DIR}/*")
   end
 
+  def create_message(**options)
+    data = { message: options }
+    Telegram::Bot::Types::Update.new(data).current_message
+  end
+
+  def create_bot_class(config: :default)
+    default_config = {
+      bot_username: "@yourbot"
+    }
+    config = default_config if config == :default
+
+    bot_class = Class.new(Rubydium::Bot)
+    bot_class.config = config
+    bot_class
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
