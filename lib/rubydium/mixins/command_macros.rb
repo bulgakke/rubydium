@@ -24,7 +24,7 @@ module Rubydium
         when Symbol
           public_send action
         when Proc
-          action.call
+          instance_exec(&action)
         end
       end
     end

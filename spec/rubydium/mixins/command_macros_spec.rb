@@ -4,7 +4,10 @@ RSpec.describe Rubydium::Mixins::CommandMacros do
 
   context "::on_command" do
     it "registers commands with a block" do
-      block = Proc.new {}
+      test_bot_class.define_method(:test_method) {}
+      block = Proc.new {
+        test_method
+      }
       test_bot_class.on_command "/test_command", &block
 
       expect(test_bot_class.registered_commands).to include("/test_command")
@@ -16,9 +19,10 @@ RSpec.describe Rubydium::Mixins::CommandMacros do
       }
       update = Telegram::Bot::Types::Update.new(data).current_message
 
-      expect(block).to receive(:call)
       allow(client).to receive(:api)
-      test_bot_class.new(client, update).handle_update
+      bot = test_bot_class.new(client, update)
+      expect(bot).to receive(:test_method)
+      bot.handle_update
     end
 
     it "registers commands with a method name" do
