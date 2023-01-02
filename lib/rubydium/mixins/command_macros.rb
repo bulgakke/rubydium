@@ -6,13 +6,13 @@ module Rubydium
       end
 
       module ClassMethods
-        def on_every_message(method_name=nil, **options, &block)
-          @registered_on_every_message ||= {}
-          @registered_on_every_message.merge!({ (method_name || block) => options })
+        def on_every_message(method_name=nil, &block)
+          @registered_on_every_message ||= []
+          @registered_on_every_message << (method_name || block)
         end
 
         def registered_on_every_message
-          @registered_on_every_message ||= {}
+          @registered_on_every_message ||= []
         end
 
         def on_command(command, method_name=nil, description: nil, &block)
@@ -34,7 +34,7 @@ module Rubydium
       end
 
       def execute_on_every_message
-        self.class.registered_on_every_message.each_pair do |action, options|
+        self.class.registered_on_every_message.each do |action|
           case action
           when Symbol
             public_send action
