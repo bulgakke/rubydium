@@ -38,6 +38,7 @@ RSpec.describe Rubydium::Config do
 
     expect(bot_class.config.bot_username).to eq("@your_bot")
     expect(bot_class.config.privileged_usernames).to eq(%w[@user_one @user_two])
+    expect(bot.config.bot_username).to eq("@your_bot")
   end
 
   it "sets config values using hash syntax" do
@@ -48,6 +49,7 @@ RSpec.describe Rubydium::Config do
 
     expect(bot_class.config.bot_username).to eq("@your_bot")
     expect(bot_class.config.privileged_usernames).to eq(%w[@user_one @user_two])
+    expect(bot.config.bot_username).to eq("@your_bot")
   end
 
   it "sets config values from an external file" do
@@ -62,5 +64,6 @@ RSpec.describe Rubydium::Config do
 
     expect(bot_class.config.bot_username).to eq("@your_bot")
     expect(bot_class.config.privileged_usernames).to eq(%w[@user_one @user_two])
+    expect(bot.config.bot_username).to eq("@your_bot")
   end
 end
