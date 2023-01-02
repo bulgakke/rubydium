@@ -4,7 +4,12 @@ require "rubydium"
 
 # Your actual logic of handling the updates goes here.
 class ExampleBot < Rubydium::Bot
-  on_command "/start", :greet_user # to be implemented
+  on_command "/help", description: "Show help message" do
+    text = help_message
+    send_message(text)
+  end
+
+  on_command "/start", :greet_user, description: "Say hello"
 
   def greet_user
     text = "Hi hello"

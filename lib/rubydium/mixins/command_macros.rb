@@ -6,10 +6,17 @@ module Rubydium
       end
 
       module ClassMethods
-        def on_command(command, method_name=nil, &block)
+        def on_command(command, method_name=nil, description: nil, &block)
           @registered_commands ||= {}
 
-          @registered_commands.merge!({command => (method_name || block)})
+          @registered_commands.merge!(
+            {
+              command => {
+                action: (method_name || block),
+                description: description
+              }
+            }
+          )
         end
 
         def registered_commands
@@ -18,7 +25,7 @@ module Rubydium
       end
 
       def execute_command
-        action = self.class.registered_commands[@command]
+        action = self.class.registered_commands[@command][:action]
 
         case action
         when Symbol
