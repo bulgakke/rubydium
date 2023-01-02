@@ -41,6 +41,12 @@ module Rubydium
 
     private
 
+    def help_message
+      self.class.registered_commands.map { |command, info|
+        "#{command} - #{info[:description]}"
+      }.join("\n")
+    end
+
     # This assumes the message starts with the `/command`.
     # For example:
     # "/start asdf", "/start@yourbot", "/start /another_command", "asdf /start" will all return "/start".
