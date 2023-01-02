@@ -5,8 +5,8 @@ module Rubydium
   # This is a base class that's meant to be inherited by user's actual bot class,
   # where actual logic of handling the updates is described.
   class Bot
-    def self.run(token)
-      Telegram::Bot::Client.run(token) do |client|
+    def self.run
+      Telegram::Bot::Client.run(config.token) do |client|
         client.listen do |update|
           new(client, update).handle_update
         end
