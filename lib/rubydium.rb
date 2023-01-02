@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "telegram/bot"
 require_relative "rubydium/mixins"
 require_relative "rubydium/bot"

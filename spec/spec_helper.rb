@@ -17,9 +17,9 @@ require "fileutils"
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-RSpec.configure do |config|
-  TEMP_DIR = "#{__dir__}/tmp"
+TEMP_DIR = "#{__dir__}/tmp".freeze
 
+RSpec.configure do |config|
   config.after(:suite) do
     # Leaves the .keep file intact
     FileUtils.rm_rf Dir.glob("#{TEMP_DIR}/*")

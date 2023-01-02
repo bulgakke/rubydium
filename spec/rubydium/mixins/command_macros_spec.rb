@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Rubydium::Mixins::CommandMacros do
   let(:test_bot_class) do
     bot = Class.new(Rubydium::Bot)
@@ -7,14 +9,14 @@ RSpec.describe Rubydium::Mixins::CommandMacros do
     bot
   end
 
-  let(:client) { double('client') }
+  let(:client) { double("client") }
 
   context "::on_command" do
     it "registers commands with a block" do
-      test_bot_class.define_method(:test_method) {}
-      block = Proc.new {
+      test_bot_class.define_method(:test_method) { }
+      block = proc do
         test_method
-      }
+      end
       test_bot_class.on_command "/test_command", &block
 
       expect(test_bot_class.registered_commands).to include("/test_command")
@@ -33,7 +35,7 @@ RSpec.describe Rubydium::Mixins::CommandMacros do
     end
 
     it "registers commands with a method name" do
-      test_bot_class.define_method(:method_name) {  }
+      test_bot_class.define_method(:method_name) { }
       test_bot_class.on_command "/another_command", :method_name
 
       expect(test_bot_class.registered_commands).to include("/another_command")
