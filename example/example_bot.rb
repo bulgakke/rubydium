@@ -4,12 +4,18 @@ require "rubydium"
 
 # Your actual logic of handling the updates goes here.
 class ExampleBot < Rubydium::Bot
+  on_every_message :log_message
+
   on_command "/help", description: "Show help message" do
     text = help_message
     send_message(text)
   end
 
   on_command "/start", :greet_user, description: "Say hello"
+
+  def log_message
+    puts "Got message from #{@user.first_name}, text: \n#{@text}"
+  end
 
   def greet_user
     text = "Hi hello"

@@ -36,6 +36,7 @@ module Rubydium
     end
 
     def handle_update
+      execute_on_every_message
       execute_command
     end
 
