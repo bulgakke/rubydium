@@ -3,10 +3,10 @@ There's two main ways to write your config. With a block:
 ```ruby
 ExampleBot.configure do |config|
   config.token = "1234567890:long_alphanumeric_string_goes_here"
-  config.bot_username = "@ends_with_bot"
-  config.owner_username = "@thats_you"
+  config.bot_username = "ends_with_bot"
+  config.owner_username = "thats_you"
   config.privileged_usernames = %w[
-    @your_friend @your_chat_moderator
+    your_friend your_chat_moderator
   ]
 end
 ```
@@ -14,10 +14,10 @@ Or with a hash:
 ```ruby
 ExampleBot.config = {
   token: "1234567890:long_alphanumeric_string_goes_here",
-  bot_username: "@ends_with_bot",
-  owner_username: "@thats_you",
+  bot_username: "ends_with_bot",
+  owner_username: "thats_you",
   privileged_usernames: %w[
-    @your_friend @your_chat_moderator
+    your_friend your_chat_moderator
   ]
 }
 ```
@@ -27,11 +27,11 @@ The hash variant also means you can pass in any valid Ruby hash, regardless of w
 // ./config.json
 {
   "token": "1234567890:long_alphanumeric_string_goes_here",
-  "bot_username": "@ends_with_bot",
-  "owner_username": "@thats_you",
+  "bot_username": "ends_with_bot",
+  "owner_username": "thats_you",
   "privileged_usernames": [
-    "@your_friend",
-    "@your_chat_moderator"
+    "your_friend",
+    "your_chat_moderator"
   ]
 }
 ```
@@ -45,11 +45,11 @@ or a YAML:
 ```yaml
 # ./config.yaml
 token: "1234567890:long_alphanumeric_string_goes_here"
-bot_username: "@ends_with_bot"
-owner_username: "@thats_you"
+bot_username: "ends_with_bot"
+owner_username: "thats_you"
 privileged_usernames:
- - "@your_friend"
- - "@your_chat_moderator"
+ - "your_friend"
+ - "your_chat_moderator"
 ```
 ```ruby
 require "yaml"

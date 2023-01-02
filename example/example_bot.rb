@@ -25,10 +25,10 @@ end
 
 ExampleBot.configure do |config|
   config.token = "1234567890:long_alphanumeric_string_goes_here"
-  config.bot_username = "@ends_with_bot"
-  config.owner_username = "@thats_you"
+  config.bot_username = "ends_with_bot"
+  config.owner_username = "thats_you"
   config.privileged_usernames = %w[
-    @your_friend @your_chat_moderator
+    your_friend your_chat_moderator
   ]
 end
 

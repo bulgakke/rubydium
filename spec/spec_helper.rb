@@ -32,7 +32,8 @@ RSpec.configure do |config|
 
   def create_bot_class(config: :default)
     default_config = {
-      bot_username: "@yourbot"
+      bot_username: "yourbot",
+      owner_username: "owner"
     }
     config = default_config if config == :default
 
