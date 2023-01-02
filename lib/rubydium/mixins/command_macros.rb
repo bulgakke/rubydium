@@ -12,7 +12,10 @@ module Rubydium
       module ClassMethods
         def on_every_message(method_name=nil, &block)
           @registered_on_every_message ||= []
-          @registered_on_every_message << (method_name || block)
+          action = (method_name || block)
+          raise ArgumentError, "Provide either method name or a block" unless action
+
+          @registered_on_every_message << action
         end
 
         def registered_on_every_message
@@ -21,11 +24,13 @@ module Rubydium
 
         def on_command(command, method_name=nil, description: nil, &block)
           @registered_commands ||= {}
+          action = (method_name || block)
+          raise ArgumentError, "Provide either method name or a block" unless action
 
           @registered_commands.merge!(
             {
               command => {
-                action: (method_name || block),
+                action: action,
                 description: description
               }
             }
