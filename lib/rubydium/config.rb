@@ -7,7 +7,7 @@ module Rubydium
     end
 
     def self.config
-      @@config ||= Config.new
+      @config ||= Config.new
     end
 
     def self.config=(config_hash)

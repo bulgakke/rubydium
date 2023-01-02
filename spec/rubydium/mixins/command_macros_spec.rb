@@ -1,5 +1,12 @@
 RSpec.describe Rubydium::Mixins::CommandMacros do
-  let(:test_bot_class) { Class.new(Rubydium::Bot) }
+  let(:test_bot_class) do
+    bot = Class.new(Rubydium::Bot)
+    bot.configure do |config|
+      config.bot_username = "asdf"
+    end
+    bot
+  end
+
   let(:client) { double('client') }
 
   context "::on_command" do
