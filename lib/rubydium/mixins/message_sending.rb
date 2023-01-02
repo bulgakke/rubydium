@@ -19,7 +19,7 @@ module Rubydium
       def reply_to_target(text)
         @api.send_message(
           chat_id: @chat.id,
-          reply_to_message_id: @msg.reply_to_message.message_id,
+          reply_to_message_id: @replies_to.message_id,
           text: text
         )
       end
