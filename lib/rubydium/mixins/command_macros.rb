@@ -39,18 +39,17 @@ module Rubydium
 
       def execute_on_every_message
         self.class.registered_on_every_message.each do |action|
-          case action
-          when Symbol
-            public_send action
-          when Proc
-            instance_exec(&action)
-          end
+          execute_action(action)
         end
       end
 
       def execute_command
         action = self.class.registered_commands[@command][:action]
 
+        execute_action(action)
+      end
+
+      def execute_action(action)
         case action
         when Symbol
           public_send action
