@@ -23,6 +23,13 @@ Metrics/BlockLength:
   Exclude:
    - spec/**/*
 
+Metrics/MethodLength:
+  CountAsOne:
+   - array
+   - heredoc
+   - method_call
+   - hash
+
 RSpec/BeNil:
   EnforcedStyle: be
 
@@ -46,7 +53,7 @@ Style/Documentation:
    - ClassMethods
 
 Style/HashSyntax:
-  EnforcedShorthandSyntax: consistent
+  EnforcedShorthandSyntax: never
 
 Style/IfUnlessModifier:
   Enabled: false
