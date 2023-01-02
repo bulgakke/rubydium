@@ -50,7 +50,7 @@ module Rubydium
 
     # This assumes the message starts with the `/command`.
     # For example:
-    # "/start asdf", "/start@yourbot", "/start /another_command", "asdf /start" will all return "/start".
+    # "/start asdf", "/start@yourbot", "/start /another", "asdf /start" will all return "/start".
     def get_command(text)
       return unless text
 

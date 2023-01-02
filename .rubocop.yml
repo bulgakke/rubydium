@@ -1,10 +1,38 @@
 AllCops:
   TargetRubyVersion: 3.1.2
   NewCops: enable
+  Exclude:
+   - test.rb
+
 Layout/LineLength:
   Max: 100
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+
+Layout/SpaceInsideBlockBraces:
+  EnforcedStyleForEmptyBraces: space
+
+Lint/EmptyBlock:
+  Exclude:
+   - spec/rubydium/mixins/command_macros_spec.rb
+
+Metrics/BlockLength:
+  Exclude:
+   - spec/**/*
+
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
+
+Style/Documentation:
+  AllowedConstants:
+   - ClassMethods
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: consistent
+
+Style/IfUnlessModifier:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
-Style/ModuleFunction:
-  Exclude:
-   - lib/rubydium/config.rb

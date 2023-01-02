@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 module Rubydium
   module Mixins
+    # Macro-like definitions that describe what actions bot takes
+    # in reaction to messages.
     module CommandMacros
       def self.included(base)
         base.extend ClassMethods

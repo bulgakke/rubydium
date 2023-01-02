@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 module Rubydium
   module Mixins
+    # Shorthand methods for sending messages in different ways.
     module MessageSending
       def send_message(text)
         @api.send_message(
