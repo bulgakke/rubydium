@@ -8,7 +8,7 @@ class ExampleBot < Rubydium::Bot
 
   def greet_user
     text = "Hi hello"
-    reply(text) # to be implemented
+    reply(text)
   end
 end
 
