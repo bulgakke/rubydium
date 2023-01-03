@@ -49,7 +49,10 @@ module Rubydium
       end
 
       def execute_command
-        action = self.class.registered_commands[@command][:action]
+        command = self.class.registered_commands[@command]
+        return unless command
+
+        action = command[:action]
 
         execute_action(action)
       end
@@ -62,6 +65,12 @@ module Rubydium
           instance_exec(&action)
         end
       end
+
+      # # Implement @commands
+      # def execute_all_commands
+      #   method_names = self.class.registered_commands.slice(*@commands).values
+      #   method_name.each { |method| self.public_send(method) }
+      # end
     end
   end
 end
