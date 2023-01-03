@@ -12,10 +12,9 @@ RSpec.describe Rubydium::Mixins::CommandMacros do
   describe ".on_command" do
     it "registers commands with a block" do
       bot_class.define_method(:test_method) { }
-      block = proc do
+      bot_class.on_command "/test_command" do
         test_method
       end
-      bot_class.on_command "/test_command", &block
 
       expect(bot_class.registered_commands).to include("/test_command")
 
@@ -30,6 +29,18 @@ RSpec.describe Rubydium::Mixins::CommandMacros do
       expect(bot_class.registered_commands).to include("/test_command")
 
       expect(bot).to receive(:method_name)
+      bot.handle_update
+    end
+  end
+
+  describe "#execute_command" do
+    it "doesn't do anything if the command is not found in the message" do
+      bot_class.define_method(:test_method) { }
+      bot_class.on_command "/command_not_in_the_message" do
+        test_method
+      end
+
+      expect(bot).to_not receive(:test_method)
       bot.handle_update
     end
   end
