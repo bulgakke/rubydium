@@ -2,7 +2,7 @@
 Rubydium is a framework for building Telegram bots.
 Built on top of [telegram-bot-ruby](https://github.com/atipugin/telegram-bot-ruby) API wrapper, it aims to provide tools for building your bots with minimum boilerplate.
 
-It's far from being done, but all the code in the [examples](examples/) directory is functional and *mostly* covered with [specs](spec/rubydium/).
+It's far from being done, but all the code in the [examples](example/) directory is functional and *mostly* covered with [specs](spec/rubydium/).
 
 # Installation
 CLI tool for creating and setting up new projects is planned. For now:
