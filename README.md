@@ -1,3 +1,24 @@
+# What it is
+Rubydium is a framework for building Telegram bots.
+Built on top of [telegram-bot-ruby](https://github.com/atipugin/telegram-bot-ruby) API wrapper, it aims to provide tools for building your bots with minimum boilerplate.
+
+It's far from being done, but all the code in the [examples](examples/) directory is functional and *mostly* covered with [specs](spec/rubydium/).
+
+# Installation
+CLI tool for creating and setting up new projects is planned. For now:
+
+1. Create your project:
+`mkdir example_bot && cd example_bot`
+2. Install the gem:
+- Add this gem to the Gemfile:
+`bundle init && echo 'gem "rubydium"' >> Gemfile`
+`bundle install`
+- Or install system-wide:
+`gem install rubydium`
+3. Create your main file:
+`touch example_bot.rb`
+4. See the [examples](examples/) directory for bot examples.
+
 # Configuring the bot
 There's two main ways to write your config. With a block:
 ```ruby
