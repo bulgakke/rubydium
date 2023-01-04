@@ -42,39 +42,44 @@ ExampleBot.config = {
   ]
 }
 ```
-The hash variant also means you can pass in any valid Ruby hash, regardless of where it comes from. For example, you can set the same values, if you parse a JSON file:
+The hash variant also means you can pass in any valid Ruby hash, regardless of where it comes from. For example, you can set the same values, if you parse
+<details>
+  <summary>a JSON file:</summary>
 
-`example_bot/config.json`:
-```json
-{
-  "token": "1234567890:long_alphanumeric_string_goes_here",
-  "bot_username": "ends_with_bot",
-  "owner_username": "thats_you",
-  "privileged_usernames": [
-    "your_friend",
-    "your_chat_moderator"
-  ]
-}
-```
-`example_bot/example_bot.rb`:
-```ruby
-require "json"
-ExampleBot.config = JSON.load_file("./config.json")
-```
+  `example_bot/config.json`:
+  ```json
+  {
+    "token": "1234567890:long_alphanumeric_string_goes_here",
+    "bot_username": "ends_with_bot",
+    "owner_username": "thats_you",
+    "privileged_usernames": [
+      "your_friend",
+      "your_chat_moderator"
+    ]
+  }
+  ```
+  `example_bot/example_bot.rb`:
+  ```ruby
+  require "json"
+  ExampleBot.config = JSON.load_file("./config.json")
+  ```
+</details>
 
-or a YAML:
+<details>
+  <summary>or a YAML:</summary>
 
-`example_bot/config.yaml`
-```yaml
-token: 1234567890:long_alphanumeric_string_goes_here
-bot_username: ends_with_bot
-owner_username: thats_you
-privileged_usernames:
- - your_friend
- - your_chat_moderator
-```
-`example_bot/example_bot.rb`:
-```ruby
-require "yaml"
-ExampleBot.config = YAML.load_file("./config.yaml")
-```
+  `example_bot/config.yaml`
+  ```yaml
+  token: 1234567890:long_alphanumeric_string_goes_here
+  bot_username: ends_with_bot
+  owner_username: thats_you
+  privileged_usernames:
+  - your_friend
+  - your_chat_moderator
+  ```
+  `example_bot/example_bot.rb`:
+  ```ruby
+  require "yaml"
+  ExampleBot.config = YAML.load_file("./config.yaml")
+  ```
+</details>
