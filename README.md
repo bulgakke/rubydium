@@ -43,6 +43,7 @@ ExampleBot.config = {
 }
 ```
 The hash variant also means you can pass in any valid Ruby hash, regardless of where it comes from. For example, you can set the same values, if you parse a JSON file:
+
 `example_bot/config.json`:
 ```json
 {
@@ -62,6 +63,7 @@ ExampleBot.config = JSON.load_file("./config.json")
 ```
 
 or a YAML:
+
 `example_bot/config.yaml`
 ```yaml
 token: "1234567890:long_alphanumeric_string_goes_here"
