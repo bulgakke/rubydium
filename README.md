@@ -17,7 +17,7 @@ CLI tool for creating and setting up new projects is planned. For now:
 `gem install rubydium`
 3. Create your main file:
 `touch example_bot.rb`
-4. See the [examples](examples/) directory for bot examples.
+4. See the [examples](example/) directory for bot examples.
 
 # Configuring the bot
 There's two main ways to write your config. With a block:
