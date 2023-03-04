@@ -11,12 +11,17 @@ module Rubydium
         )
       end
 
-      def reply(text)
+      def reply(text, **args)
         @api.send_message(
           chat_id: @chat.id,
           reply_to_message_id: @message_id,
-          text: text
+          text: text,
+          **args
         )
+      end
+
+      def reply_code(text)
+        reply("```\n#{text}```", parse_mode: "Markdown")
       end
 
       def reply_to_target(text)
