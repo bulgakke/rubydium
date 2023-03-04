@@ -11,14 +11,26 @@ module Rubydium
 
     def self.run
       Telegram::Bot::Client.run(config.token) do |client|
-        client.listen do |update|
-          # Not all `update`s here are messages (`listen` yields `Update#current_message`,
-          # which can be `ChatMemberUpdated` etc.)
-          # TODO: rework to allow for clean handling of other types.
-          if update.is_a? Telegram::Bot::Types::Message
-            new(client, update).handle_update
-          end
+
+        Async do |task|
+
+            client.listen do |update|
+
+                task.async do
+                  # Not all `update`s here are messages (`listen` yields `Update#current_message`,
+                  # which can be `ChatMemberUpdated` etc.)
+                  # TODO: rework to allow for clean handling of other types.
+                  if update.is_a? Telegram::Bot::Types::Message
+                    new(client, update).handle_update
+                  end
+                rescue => e
+                  puts e
+                end
+
+            end
+
         end
+
       end
     end
 
