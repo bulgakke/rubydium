@@ -30,9 +30,10 @@ module Rubydium
       @chat = @msg.chat
       @replies_to = @msg.reply_to_message
       @target = @replies_to&.from
-      @text = @msg.text
+      @text = @msg.text.to_s
       @message_id = @msg.message_id
       @command = get_command(@msg.text)
+      @text_without_command = @text&.gsub(@command.to_s, '').gsub(/@#{config.bot_username}\b/, '').strip
     end
 
     def handle_update
