@@ -24,7 +24,7 @@ module Rubydium
                     new(client, update).handle_update
                   end
                 rescue => e
-                  puts e
+                  puts e.detailed_message, e.backtrace
                 end
 
             end
@@ -45,11 +45,14 @@ module Rubydium
       @text = @msg.text.to_s
       @message_id = @msg.message_id
       @command = get_command(@msg.text)
-      @text_without_command = @text&.gsub(@command.to_s, '').gsub(/@#{config.bot_username}\b/, '').strip
+      @text_without_command = @text.gsub(@command.to_s, '').gsub(/@#{config.bot_username}\b/, '').strip
+      @text_without_bot_mentions = @text.gsub(/@#{config.bot_username}\b/, '')
     end
 
     def handle_update
       execute_on_every_message
+      execute_on_mention if @text.split(/\s/).first == "@#{config.bot_username}"
+      # execute_on_reply if @target&.username == config.bot_username
       execute_command
     end
 
