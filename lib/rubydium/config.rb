@@ -24,6 +24,13 @@ module Rubydium
   # Things that a full-fledged bot probably needs to know.
   # Not necessary for basic functionality, though.
   class Config
-    attr_accessor :bot_username, :owner_username, :owner_id, :token, :privileged_usernames
+    def method_missing(method, ...)
+      if method[-1] == '='
+        self.class.attr_accessor method[0..-2]
+        public_send(method, ...)
+      else
+        super(method, ...)
+      end
+    end
   end
 end
