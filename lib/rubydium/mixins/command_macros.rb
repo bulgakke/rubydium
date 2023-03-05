@@ -10,19 +10,37 @@ module Rubydium
       end
 
       module ClassMethods
-        def on_every_message(method_name=nil, &block)
+        def on_mention(method_name=nil, ignore_forwarded: true, &block)
+          @registered_on_mention ||= []
+          action = (method_name || block)
+          raise ArgumentError, "Provide either method name or a block" unless action
+
+          @registered_on_mention << {
+            action: action,
+            ignore_forwarded: ignore_forwarded
+          }
+        end
+
+        def registered_on_mention
+          @registered_on_mention ||= []
+        end
+
+        def on_every_message(method_name=nil, ignore_forwarded: true, &block)
           @registered_on_every_message ||= []
           action = (method_name || block)
           raise ArgumentError, "Provide either method name or a block" unless action
 
-          @registered_on_every_message << action
+          @registered_on_every_message << {
+            action: action,
+            ignore_forwarded: ignore_forwarded
+          }
         end
 
         def registered_on_every_message
           @registered_on_every_message ||= []
         end
 
-        def on_command(command, method_name=nil, description: nil, &block)
+        def on_command(command, method_name=nil, description: nil, ignore_forwarded: true, &block)
           @registered_commands ||= {}
           action = (method_name || block)
           raise ArgumentError, "Provide either method name or a block" unless action
@@ -31,7 +49,8 @@ module Rubydium
             {
               command => {
                 action: action,
-                description: description
+                description: description,
+                ignore_forwarded: ignore_forwarded
               }
             }
           )
@@ -44,13 +63,22 @@ module Rubydium
 
       def execute_on_every_message
         self.class.registered_on_every_message.each do |action|
-          execute_action(action)
+          next if action[:ignore_forwarded] && @msg.forward_date
+          execute_action(action[:action])
+        end
+      end
+
+      def execute_on_mention
+        self.class.registered_on_mention.each do |action|
+          next if action[:ignore_forwarded] && @msg.forward_date
+          execute_action(action[:action])
         end
       end
 
       def execute_command
         command = self.class.registered_commands[@command]
         return unless command
+        return if command[:ignore_forwarded] && @msg.forward_date
 
         action = command[:action]
 
