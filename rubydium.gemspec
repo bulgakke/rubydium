@@ -32,4 +32,11 @@ Gem::Specification.new do |spec|
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html
   spec.metadata["rubygems_mfa_required"] = "true"
+
+  {
+    "telegram-bot-ruby" => ['~> 0.23.0'],
+    "async" => ['~> 2.3']
+  }.each do |name, versions|
+    spec.add_dependency(name, *versions)
+  end
 end
