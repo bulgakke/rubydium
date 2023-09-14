@@ -10,6 +10,34 @@ module Rubydium
       end
 
       module ClassMethods
+        # Makes these actions work in inheritance as you would expect, i. e.:
+        #
+        # class ParentBot < Rubydium::Bot
+        #   on_every_message :foo
+        # end
+        #
+        # class ChildBot < ParentBot
+        #   on_every_message :bar
+        # end
+        #
+        # class AnotherChildBot < ParentBot
+        #   on_every_message :baz
+        # end
+        #
+        # ParentBot.registered_on_every_message.map { _1[:action] } # => [:foo]
+        # ChildBot.registered_on_every_message.map { _1[:action] } # => [:foo, :bar]
+        # AnotherChildBot.registered_on_every_message.map { _1[:action] } # => [:foo, :baz]
+        def inherited(subclass)
+          %w[
+            @registered_on_mention
+            @registered_on_every_message
+            @registered_commands
+          ].each do |var_name|
+            current_value_copy = instance_variable_get(var_name).dup
+            subclass.instance_variable_set(var_name, current_value_copy)
+          end
+        end
+
         def on_mention(method_name=nil, ignore_forwarded: true, &block)
           @registered_on_mention ||= []
           action = (method_name || block)
@@ -58,6 +86,12 @@ module Rubydium
 
         def registered_commands
           @registered_commands ||= {}
+        end
+      end
+
+      def skip_task(**kwargs)
+        kwargs.each_pair do |task_type, task_name|
+
         end
       end
 
