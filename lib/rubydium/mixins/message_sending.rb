@@ -11,12 +11,21 @@ module Rubydium
         )
       end
 
-      def send_sticker(sticker, **kwargs)
+      def send_sticker(sticker, action: nil, **kwargs)
+        chat_action_if_provided(action, :choose_sticker)
+
         @api.send_sticker(
           chat_id: @chat.id,
           sticker: sticker,
           **kwargs
         )
+      end
+
+      def chat_action_if_provided(duration, action_name)
+        if duration
+          send_chat_action(action_name)
+          sleep duration if duration.is_a? Numeric
+        end
       end
 
       def send_chat_action(action, **kwargs)
@@ -27,7 +36,9 @@ module Rubydium
         )
       end
 
-      def send_video(video, **kwargs)
+      def send_video(video, action: nil, **kwargs)
+        chat_action_if_provided(action, :upload_video)
+
         @api.send_video(
           chat_id: @chat.id,
           video: video,
@@ -35,7 +46,9 @@ module Rubydium
         )
       end
 
-      def send_photo(photo, **kwargs)
+      def send_photo(photo, action: nil, **kwargs)
+        chat_action_if_provided(action, :upload_photo)
+
         @api.send_photo(
           chat_id: @chat.id,
           photo: photo,
