@@ -11,26 +11,20 @@ module Rubydium
 
     def self.run
       Telegram::Bot::Client.run(config.token) do |client|
-
         Async do |task|
-
-            client.listen do |update|
-
-                task.async do
-                  # Not all `update`s here are messages (`listen` yields `Update#current_message`,
-                  # which can be `ChatMemberUpdated` etc.)
-                  # TODO: rework to allow for clean handling of other types.
-                  if update.is_a? Telegram::Bot::Types::Message
-                    new(client, update).handle_update
-                  end
-                rescue => e
-                  puts e.detailed_message, e.backtrace
-                end
-
+          client.listen do |update|
+            task.async do
+              # Not all `update`s here are messages (`listen` yields `Update#current_message`,
+              # which can be `ChatMemberUpdated` etc.)
+              # TODO: rework to allow for clean handling of other types.
+              if update.is_a? Telegram::Bot::Types::Message
+                new(client, update).handle_update
+              end
+            rescue => e
+              puts e.detailed_message, e.backtrace
             end
-
+          end
         end
-
       end
     end
 
@@ -64,14 +58,13 @@ module Rubydium
       }.join("\n")
     end
 
-    # This assumes the message starts with the `/command`.
     # For example:
     # "/start asdf", "/start@yourbot", "/start /another", "asdf /start" will all return "/start".
     def get_command(text)
       return unless text
 
-      command = text.split.grep(COMMAND_REGEXP).first
-      command&.delete_suffix("@#{config.bot_username}")
+      @command = text.split.grep(%r{\A/}).first
+      @command&.delete_suffix("@#{config.bot_username}")
     end
   end
 end
