@@ -11,6 +11,38 @@ module Rubydium
         )
       end
 
+      def send_sticker(sticker, **kwargs)
+        @api.send_sticker(
+          chat_id: @chat.id,
+          sticker: sticker,
+          **kwargs
+        )
+      end
+
+      def send_chat_action(action, **kwargs)
+        @api.send_chat_action(
+          chat_id: @chat.id,
+          action: action,
+          **kwargs
+        )
+      end
+
+      def send_video(video, **kwargs)
+        @api.send_video(
+          chat_id: @chat.id,
+          video: video,
+          **kwargs
+        )
+      end
+
+      def send_photo(photo, **kwargs)
+        @api.send_photo(
+          chat_id: @chat.id,
+          photo: photo,
+          **kwargs
+        )
+      end
+
       def reply(text, **args)
         @api.send_message(
           chat_id: @chat.id,
