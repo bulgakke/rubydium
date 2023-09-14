@@ -38,6 +38,12 @@ module Rubydium
           end
         end
 
+        def help_message
+          registered_commands.map { |command, info|
+            "#{command} - #{info[:description]}"
+          }.join("\n")
+        end
+
         def on_mention(method_name=nil, ignore_forwarded: true, &block)
           @registered_on_mention ||= []
           action = (method_name || block)
