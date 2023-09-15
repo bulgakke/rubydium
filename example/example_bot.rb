@@ -7,7 +7,7 @@ class ExampleBot < Rubydium::Bot
   on_every_message :log_message
 
   on_command "/help", description: "Show help message" do
-    text = help_message
+    text = self.class.help_message
     send_message(text)
   end
 
