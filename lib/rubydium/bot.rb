@@ -42,7 +42,8 @@ module Rubydium
       @msg = update
       @user = @msg.from
       @chat = @msg.chat
-      @replies_to = @msg.reply_to_message
+      @topic_id = @msg.message_thread_id if @chat.is_forum
+      @replies_to = @msg.reply_to_message unless @msg.reply_to_message.id == @topic_id
       @target = @replies_to&.from
       @text = @msg.text.to_s
       @message_id = @msg.message_id
@@ -50,7 +51,6 @@ module Rubydium
       @text_without_command = @text.gsub(@command.to_s, "").gsub(/@#{config.bot_username}\b/,
                                                                  "").strip
       @text_without_bot_mentions = @text.gsub(/@#{config.bot_username}\b/, "")
-      @topic_id = @msg.message_thread_id if @chat.is_forum
     end
 
     def handle_update
