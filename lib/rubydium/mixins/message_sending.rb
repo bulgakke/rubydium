@@ -4,11 +4,12 @@ module Rubydium
   module Mixins
     # Shorthand methods for sending messages in different ways.
     module MessageSending
-      def send_message(text)
+      def send_message(text, **kwargs)
         @api.send_message(
           chat_id: @chat.id,
           message_thread_id: @topic_id,
-          text: text
+          text: text,
+          **kwargs
         )
       end
 
