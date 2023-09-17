@@ -9,8 +9,16 @@ module Rubydium
 
     COMMAND_REGEXP = %r{\A/}
 
+    def self.fetch_and_set_bot_id(client)
+      configure do |config|
+        config.bot_id = client.api.get_me.dig("result", "id") unless config.respond_to? :bot_id
+      end
+    end
+
     def self.run
       Telegram::Bot::Client.run(config.token) do |client|
+        fetch_and_set_bot_id(client)
+
         Async do |task|
           client.listen do |update|
             task.async do
@@ -41,6 +49,7 @@ module Rubydium
       @command = get_command(@msg.text)
       @text_without_command = @text.gsub(@command.to_s, '').gsub(/@#{config.bot_username}\b/, '').strip
       @text_without_bot_mentions = @text.gsub(/@#{config.bot_username}\b/, '')
+      @topic_id = @msg.message_thread_id if @chat.is_forum
     end
 
     def handle_update
