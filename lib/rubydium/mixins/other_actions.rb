@@ -12,6 +12,8 @@ module Rubydium
       end
 
       def definitely_message(maybe_message)
+        return maybe_message if maybe_message.is_a? Telegram::Bot::Types::Message
+
         if maybe_message["message_id"]
           Telegram::Bot::Types::Message.new(maybe_message)
         elsif maybe_message["result"]["message_id"]
