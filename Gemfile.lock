@@ -6,20 +6,33 @@ GEM
       console (~> 1.10)
       io-event (~> 1.1)
       timers (~> 4.1)
-    axiom-types (0.1.1)
-      descendants_tracker (~> 0.0.4)
-      ice_nine (~> 0.11.0)
-      thread_safe (~> 0.3, >= 0.3.1)
+    base64 (0.1.1)
     coderay (1.1.3)
-    coercible (1.0.0)
-      descendants_tracker (~> 0.0.1)
+    concurrent-ruby (1.2.2)
     console (1.16.2)
       fiber-local
-    descendants_tracker (0.0.4)
-      thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.5.0)
+    dry-core (1.0.1)
+      concurrent-ruby (~> 1.0)
+      zeitwerk (~> 2.6)
     dry-inflector (1.0.0)
-    faraday (2.7.2)
+    dry-logic (1.5.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-struct (1.6.0)
+      dry-core (~> 1.0, < 2)
+      dry-types (>= 1.7, < 2)
+      ice_nine (~> 0.11)
+      zeitwerk (~> 2.6)
+    dry-types (1.7.1)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0)
+      dry-inflector (~> 1.0)
+      dry-logic (~> 1.4)
+      zeitwerk (~> 2.6)
+    faraday (2.7.11)
+      base64
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-multipart (1.0.4)
@@ -30,7 +43,7 @@ GEM
     io-event (1.1.5)
     json (2.6.3)
     method_source (1.0.0)
-    multipart-post (2.2.3)
+    multipart-post (2.3.0)
     parallel (1.22.1)
     parser (3.1.3.0)
       ast (~> 2.4.1)
@@ -69,18 +82,14 @@ GEM
       rubocop (~> 1.33)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    telegram-bot-ruby (0.23.0)
-      dry-inflector
+    telegram-bot-ruby (1.0.0)
+      dry-struct (~> 1.6)
       faraday (~> 2.0)
       faraday-multipart (~> 1.0)
-      virtus (~> 2.0)
-    thread_safe (0.3.6)
+      zeitwerk (~> 2.6)
     timers (4.3.5)
     unicode-display_width (2.3.0)
-    virtus (2.0.0)
-      axiom-types (~> 0.1)
-      coercible (~> 1.0)
-      descendants_tracker (~> 0.0, >= 0.0.3)
+    zeitwerk (2.6.11)
 
 PLATFORMS
   x86_64-linux
@@ -91,7 +100,7 @@ DEPENDENCIES
   rspec
   rubocop
   rubocop-rspec
-  telegram-bot-ruby
+  telegram-bot-ruby (~> 1.0.0)
 
 BUNDLED WITH
    2.3.26

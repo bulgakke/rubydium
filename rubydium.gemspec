@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.metadata["rubygems_mfa_required"] = "true"
 
   {
-    "telegram-bot-ruby" => ['~> 0.23.0'],
+    "telegram-bot-ruby" => ['~> 1.0.0'],
     "async" => ['~> 2.3']
   }.each do |name, versions|
     spec.add_dependency(name, *versions)
