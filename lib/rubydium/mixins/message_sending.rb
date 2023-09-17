@@ -7,7 +7,7 @@ module Rubydium
       def send_message(text)
         @api.send_message(
           chat_id: @chat.id,
-          message_thread_id: @msg.message_thread_id,
+          message_thread_id: @topic_id,
           text: text
         )
       end
@@ -17,7 +17,7 @@ module Rubydium
 
         @api.send_sticker(
           chat_id: @chat.id,
-          message_thread_id: @msg.message_thread_id,
+          message_thread_id: @topic_id,
           sticker: sticker,
           **kwargs
         )
@@ -34,7 +34,7 @@ module Rubydium
         @api.send_chat_action(
           chat_id: @chat.id,
           action: action,
-          message_thread_id: @msg.message_thread_id,
+          message_thread_id: @topic_id,
           **kwargs
         )
       end
@@ -44,7 +44,7 @@ module Rubydium
 
         @api.send_video(
           chat_id: @chat.id,
-          message_thread_id: @msg.message_thread_id,
+          message_thread_id: @topic_id,
           video: video,
           **kwargs
         )
@@ -55,7 +55,7 @@ module Rubydium
 
         @api.send_photo(
           chat_id: @chat.id,
-          message_thread_id: @msg.message_thread_id,
+          message_thread_id: @topic_id,
           photo: photo,
           **kwargs
         )
@@ -64,7 +64,7 @@ module Rubydium
       def reply(text, **args)
         @api.send_message(
           chat_id: @chat.id,
-          message_thread_id: @msg.message_thread_id,
+          message_thread_id: @topic_id,
           reply_to_message_id: @message_id,
           text: text,
           **args
@@ -78,7 +78,7 @@ module Rubydium
       def reply_to_target(text)
         @api.send_message(
           chat_id: @chat.id,
-          message_thread_id: @msg.message_thread_id,
+          message_thread_id: @topic_id,
           reply_to_message_id: @replies_to.message_id,
           text: text
         )
