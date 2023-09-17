@@ -28,7 +28,7 @@ module Rubydium
               if update.is_a? Telegram::Bot::Types::Message
                 new(client, update).handle_update
               end
-            rescue => e
+            rescue StandardError => e
               puts e.detailed_message, e.backtrace
             end
           end
@@ -47,8 +47,9 @@ module Rubydium
       @text = @msg.text.to_s
       @message_id = @msg.message_id
       @command = get_command(@msg.text)
-      @text_without_command = @text.gsub(@command.to_s, '').gsub(/@#{config.bot_username}\b/, '').strip
-      @text_without_bot_mentions = @text.gsub(/@#{config.bot_username}\b/, '')
+      @text_without_command = @text.gsub(@command.to_s, "").gsub(/@#{config.bot_username}\b/,
+                                                                 "").strip
+      @text_without_bot_mentions = @text.gsub(/@#{config.bot_username}\b/, "")
       @topic_id = @msg.message_thread_id if @chat.is_forum
     end
 

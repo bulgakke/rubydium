@@ -3,6 +3,7 @@
 require_relative "mixins/message_sending"
 require_relative "mixins/command_macros"
 require_relative "mixins/control_flow"
+require_relative "mixins/rights_checking"
 
 module Rubydium
   module Mixins # :nodoc:
@@ -10,7 +11,8 @@ module Rubydium
       base.include(
         MessageSending,
         CommandMacros,
-        ControlFlow
+        ControlFlow,
+        RightsChecking
       )
     end
   end
