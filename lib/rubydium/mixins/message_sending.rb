@@ -11,6 +11,15 @@ module Rubydium
           text: text,
           **kwargs
         )
+      rescue Telegram::Bot::Exceptions::ResponseError => e
+        data = e.send(:data)
+        raise e unless data["error_code"] == 429
+
+        retry_after = data.dig("parameters", "retry_after")
+        raise e unless retry_after && retry_after > 0
+
+        sleep retry_after
+        retry
       end
 
       def send_sticker(sticker, action: nil, **kwargs)
