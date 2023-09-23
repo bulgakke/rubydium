@@ -4,11 +4,19 @@ module Rubydium
   module Mixins
     # Shorthand methods for sending messages in different ways.
     module MessageSending
-      def send_message(text, **kwargs)
+      MAX_MESSAGE_SIZE = 4096
+
+      def chunks(string, size)
+        (string.length / size.to_f).ceil.times.map { |i| string[i * size, size] }
+      end
+
+      def send_message(text, split: false **kwargs)
+        return send_many_messages(text, **kwargs) if split
+
         @api.send_message(
           chat_id: @chat.id,
           message_thread_id: @topic_id,
-          text: text,
+          text: chunk,
           **kwargs
         )
       rescue Telegram::Bot::Exceptions::ResponseError => e
@@ -20,6 +28,14 @@ module Rubydium
 
         sleep retry_after
         retry
+      end
+
+      def send_many_messages(text, **kwargs)
+        text_chunks = chunks(text, MAX_MESSAGE_SIZE)
+
+        text_chunks.map do |chunk|
+          send_message(text, **kwargs)
+        end
       end
 
       def send_sticker(sticker, action: nil, **kwargs)
@@ -72,9 +88,7 @@ module Rubydium
       end
 
       def reply(text, **args)
-        @api.send_message(
-          chat_id: @chat.id,
-          message_thread_id: @topic_id,
+        send_message(
           reply_to_message_id: @message_id,
           text: text,
           **args
@@ -86,9 +100,7 @@ module Rubydium
       end
 
       def reply_to_target(text)
-        @api.send_message(
-          chat_id: @chat.id,
-          message_thread_id: @topic_id,
+        send_message(
           reply_to_message_id: @replies_to.message_id,
           text: text
         )
