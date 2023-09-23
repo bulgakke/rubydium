@@ -1,11 +1,17 @@
 module Rubydium
   module Mixins
     module OtherActions
-      def safe_delete(message)
-        return false unless (message = definitely_message(message))
-        return false unless bot_can_delete_messages? || message&.from&.id == config.bot_id
+      def safe_delete(maybe_message)
+        message = definitely_message(maybe_message)
+        return false unless message&.from&.id == config.bot_id # also returns if it's nil
 
-        result = @api.delete_message(chat_id: @chat.id, message_id: message.message_id)
+        safe_delete_by_id(message.id)
+      end
+
+      def safe_delete_by_id(id)
+        return false unless bot_can_delete_messages?
+
+        result = @api.delete_message(chat_id: @chat.id, message_id: id)
         result["ok"]
       rescue Telegram::Bot::Exceptions::ResponseError
         false
