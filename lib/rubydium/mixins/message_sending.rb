@@ -10,7 +10,7 @@ module Rubydium
         (string.length / size.to_f).ceil.times.map { |i| string[i * size, size] }
       end
 
-      def send_message(text, split: false **kwargs)
+      def send_message(text, split: false, **kwargs)
         return send_many_messages(text, **kwargs) if split
 
         @api.send_message(
