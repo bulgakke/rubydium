@@ -16,7 +16,7 @@ module Rubydium
         @api.send_message(
           chat_id: @chat.id,
           message_thread_id: @topic_id,
-          text: chunk,
+          text: text,
           **kwargs
         )
       rescue Telegram::Bot::Exceptions::ResponseError => e
@@ -89,8 +89,8 @@ module Rubydium
 
       def reply(text, **args)
         send_message(
+          text,
           reply_to_message_id: @message_id,
-          text: text,
           **args
         )
       end
