@@ -5,7 +5,7 @@ module Rubydium
         message = definitely_message(maybe_message)
         return false unless message&.from&.id == config.bot_id # also returns if it's nil
 
-        safe_delete_by_id(message.id)
+        safe_delete_by_id(message.message_id)
       end
 
       def safe_delete_by_id(id)
