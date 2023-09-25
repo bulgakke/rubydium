@@ -3,15 +3,15 @@ module Rubydium
     module OtherActions
       def safe_delete(maybe_message)
         message = definitely_message(maybe_message)
-        from_bot = message&.from&.id == config.bot_id # also returns if it's nil
         from_owner = message&.from&.username == config.owner_username
+        from_bot = message&.from&.id == config.bot_id
         return false unless from_bot || from_owner
 
-        safe_delete_by_id(message.message_id)
+        safe_delete_by_id(message.message_id, from_bot: true)
       end
 
-      def safe_delete_by_id(id)
-        return false unless bot_can_delete_messages?
+      def safe_delete_by_id(id, from_bot: false)
+        return false unless bot_can_delete_messages? || from_bot
 
         result = @api.delete_message(chat_id: @chat.id, message_id: id)
         result["ok"]
