@@ -87,11 +87,11 @@ module Rubydium
         )
       end
 
-      def reply(text, **args)
+      def reply(text, **kwargs)
         send_message(
           text,
           reply_to_message_id: @message_id,
-          **args
+          **kwargs
         )
       end
 
@@ -99,10 +99,11 @@ module Rubydium
         reply("```\n#{text}```", parse_mode: "Markdown")
       end
 
-      def reply_to_target(text)
+      def reply_to_target(text, **kwargs)
         send_message(
+          text,
           reply_to_message_id: @replies_to.message_id,
-          text: text
+          **kwargs
         )
       end
     end
