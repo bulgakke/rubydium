@@ -74,19 +74,21 @@ module Rubydium
           @registered_on_every_message ||= []
         end
 
-        def on_command(command, method_name=nil, description: nil, ignore_forwarded: true, &block)
+        def on_command(command, method_name=nil, aliases: [], description: nil, ignore_forwarded: true, &block)
           @registered_commands ||= {}
           action = (method_name || block)
           raise ArgumentError, "Provide either method name or a block" unless action
 
+          parameters = {
+            action: action,
+            description: description,
+            ignore_forwarded: ignore_forwarded
+          }
+
           @registered_commands.merge!(
-            {
-              command => {
-                action: action,
-                description: description,
-                ignore_forwarded: ignore_forwarded
-              }
-            }
+            [command, **aliases].map { |comm|
+              [comm, parameters]
+            }.to_h
           )
         end
 
