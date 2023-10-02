@@ -86,7 +86,7 @@ module Rubydium
           }
 
           @registered_commands.merge!(
-            [command, **aliases].map { |comm|
+            [command, *aliases].map { |comm|
               [comm, parameters]
             }.to_h
           )
