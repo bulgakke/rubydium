@@ -1,11 +1,11 @@
 module Rubydium
   module Mixins
     module OtherActions
-      def safe_delete(maybe_message)
+      def safe_delete(maybe_message, only_bot_or_owner: true)
         message = definitely_message(maybe_message)
         from_owner = message&.from&.username == config.owner_username
         from_bot = message&.from&.id == config.bot_id
-        return false unless from_bot || from_owner
+        return false unless only_bot_or_owner || from_bot || from_owner
 
         safe_delete_by_id(message.message_id, from_bot: true)
       end
