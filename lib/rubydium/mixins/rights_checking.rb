@@ -25,7 +25,7 @@ module Rubydium
 
       boolean_permissions.each do |permission|
         define_method "#{permission}?" do |user_id|
-          user_info(user_id).dig(permission)
+          user_info(user_id).dig(permission) || user_info(user_id)["status"] == "creator"
         end
 
         define_method "bot_#{permission}?" do
