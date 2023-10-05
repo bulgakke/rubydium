@@ -3,7 +3,7 @@ module Rubydium
     module RightsChecking
       def user_info(user_id=config.bot_id)
         @user_info ||= {}
-        return info if info = @user_info[user_id]
+        return @user_info[user_id] if @user_info[user_id]
 
         @user_info[user_id] = @api.get_chat_member(chat_id: @chat.id, user_id: user_id).dig("result")
       end
