@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rubydium"
+require "pry"
 
 # Your actual logic of handling the updates goes here.
 class ExampleBot < Rubydium::Bot
@@ -12,6 +13,9 @@ class ExampleBot < Rubydium::Bot
   end
 
   on_command "/start", :greet_user, description: "Say hello"
+  on_command "/pry" do
+    binding.pry
+  end
 
   def log_message
     puts "Got message from #{@user.first_name}, text: \n#{@text}"
