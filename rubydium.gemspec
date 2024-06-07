@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name          = "rubydium"
   spec.version       = Rubydium::VERSION
   spec.authors       = ["bulgakke"]
-  spec.email         = ["vvp835@yandex.ru"]
+  spec.email         = ["be.evgeniy.bulavin@gmail.com"]
 
   spec.summary       = "An OO framework for building Telegram bots. That's the plan, at least."
   # spec.description   = "TODO: Write a longer description or delete this line."
