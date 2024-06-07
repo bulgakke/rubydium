@@ -45,7 +45,7 @@ module Rubydium
       @topic_id = @msg.message_thread_id if @chat.is_forum
       @replies_to = @msg.reply_to_message unless @msg.reply_to_message&.message_id == @topic_id
       @target = @replies_to&.from
-      @text = @msg.text.to_s
+      @text = (@msg.text || @msg.caption).to_s
       @message_id = @msg.message_id
       @command = get_command(@msg.text || @msg.caption)
       @text_without_command = @text.gsub(@command.to_s, "").gsub(/@#{config.bot_username}\b/,
