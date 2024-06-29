@@ -25,7 +25,7 @@ module Rubydium
               # Not all `update`s here are messages (`listen` yields `Update#current_message`,
               # which can be `ChatMemberUpdated` etc.)
               # TODO: rework to allow for clean handling of other types.
-              if update.is_a? Telegram::Bot::Types::Message
+              if update.is_a?(Telegram::Bot::Types::Message) || update.is_a?(Telegram::Bot::Types::Message)
                 new(client, update).handle_update
               end
             rescue StandardError => e
