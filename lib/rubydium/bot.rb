@@ -37,10 +37,11 @@ module Rubydium
     end
 
     def initialize(client, update)
+      @update = update
       @client = client
       @api = client.api
-      @msg = update
-      @user = @msg.from
+      @msg = update.is_a?(Telegram::Bot::Types::Message) ? update : update.message
+      @user = update.from
       @chat = @msg.chat
       @topic_id = @msg.message_thread_id if @chat.is_forum
       @replies_to = @msg.reply_to_message unless @msg.reply_to_message&.message_id == @topic_id
