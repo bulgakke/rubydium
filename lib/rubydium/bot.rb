@@ -28,9 +28,10 @@ module Rubydium
               if update.is_a?(Telegram::Bot::Types::Message) || update.is_a?(Telegram::Bot::Types::CallbackQuery)
                 new(client, update).handle_update
               end
-            rescue StandardError => e
-              puts e.detailed_message, e.backtrace
             end
+          rescue StandardError => e
+            puts e.detailed_message, e.backtrace
+            retry
           end
         end
       end
