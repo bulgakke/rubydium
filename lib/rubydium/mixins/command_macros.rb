@@ -98,11 +98,6 @@ module Rubydium
         end
       end
 
-      def skip_task(**kwargs)
-        kwargs.each_pair do |task_type, task_name|
-        end
-      end
-
       def execute_on_every_message
         self.class.registered_on_every_message.each do |action|
           next if action[:ignore_forwarded] && @msg.forward_origin
