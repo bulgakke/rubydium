@@ -20,6 +20,10 @@ module Rubydium
         fetch_and_set_bot_id(client)
 
         Async do |task|
+          Signal.trap('INT') do
+            client.stop
+          end
+
           client.listen do |update|
             task.async do
               # Not all `update`s here are messages (`listen` yields `Update#current_message`,
