@@ -10,9 +10,9 @@ module Dalle
 
       send_chat_action(:upload_photo)
 
-      url = response.dig("data", 0, "url")
+      url = response.dig('data', 0, 'url')
 
-      if response["error"]
+      if response['error']
         reply_code(response)
       else
         send_photo(url, reply_to_message_id: @msg.message_id)

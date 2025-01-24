@@ -1,7 +1,7 @@
 require: rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 3.1.2
+  TargetRubyVersion: 3.4.1
   NewCops: enable
   Exclude:
    - test.rb
@@ -60,6 +60,3 @@ Style/HashSyntax:
 
 Style/IfUnlessModifier:
   Enabled: false
-
-Style/StringLiterals:
-  EnforcedStyle: double_quotes

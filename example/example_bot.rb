@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require "rubydium"
-require "pry"
+require 'rubydium'
+require 'pry'
 
 # Your actual logic of handling the updates goes here.
 class ExampleBot < Rubydium::Bot
   on_every_message :log_message
 
-  on_command "/help", description: "Show help message" do
+  on_command '/help', description: 'Show help message' do
     text = self.class.help_message
     send_message(text)
   end
 
-  on_command "/start", :greet_user, description: "Say hello"
-  on_command "/pry" do
+  on_command '/start', :greet_user, description: 'Say hello'
+  on_command '/pry' do
     binding.pry
   end
 
@@ -22,15 +22,15 @@ class ExampleBot < Rubydium::Bot
   end
 
   def greet_user
-    text = "Hi hello"
+    text = 'Hi hello'
     reply(text)
   end
 end
 
 ExampleBot.configure do |config|
-  config.token = "1234567890:long_alphanumeric_string_goes_here"
-  config.bot_username = "ends_with_bot"
-  config.owner_username = "thats_you"
+  config.token = '1234567890:long_alphanumeric_string_goes_here'
+  config.bot_username = 'ends_with_bot'
+  config.owner_username = 'thats_you'
   config.privileged_usernames = %w[
     your_friend your_chat_moderator
   ]

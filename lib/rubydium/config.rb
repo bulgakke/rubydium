@@ -25,11 +25,11 @@ module Rubydium
   # Not necessary for basic functionality, though.
   class Config
     def method_missing(method, ...)
-      if method[-1] == "="
+      if method[-1] == '='
         self.class.attr_accessor method[0..-2]
         public_send(method, ...)
       else
-        super(method, ...)
+        super
       end
     end
   end

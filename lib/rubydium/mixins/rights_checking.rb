@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rubydium
   module Mixins
     module RightsChecking
@@ -5,7 +7,8 @@ module Rubydium
         @user_info ||= {}
         return @user_info[user_id] if @user_info[user_id]
 
-        @user_info[user_id] = @api.get_chat_member(chat_id: @chat.id, user_id: user_id).dig("result")
+        @user_info[user_id] =
+          @api.get_chat_member(chat_id: @chat.id, user_id: user_id)['result']
       end
 
       boolean_permissions = %w[
@@ -25,7 +28,7 @@ module Rubydium
 
       boolean_permissions.each do |permission|
         define_method "#{permission}?" do |user_id|
-          user_info(user_id).dig(permission) || user_info(user_id)["status"] == "creator"
+          user_info(user_id)[permission] || user_info(user_id)['status'] == 'creator'
         end
 
         define_method "bot_#{permission}?" do
@@ -37,7 +40,7 @@ module Rubydium
 
       other_fields.each do |field|
         define_method field do |user_id|
-          user_info(user_id).dig(field)
+          user_info(user_id)[field]
         end
 
         define_method "bot_#{field}" do

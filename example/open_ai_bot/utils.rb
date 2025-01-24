@@ -14,7 +14,7 @@ module Utils
   end
 
   def download_file(voice)
-    file_path = @api.get_file(file_id: voice.file_id)["result"]["file_path"]
+    file_path = @api.get_file(file_id: voice.file_id)['result']['file_path']
 
     url = "https://api.telegram.org/file/bot#{config.token}/#{file_path}"
 

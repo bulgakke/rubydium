@@ -11,7 +11,7 @@ module Rubydium
 
     def self.fetch_and_set_bot_id(client)
       configure do |config|
-        config.bot_id = client.api.get_me.dig("result", "id") unless config.respond_to? :bot_id
+        config.bot_id = client.api.get_me.dig('result', 'id') unless config.respond_to? :bot_id
       end
     end
 
@@ -50,9 +50,9 @@ module Rubydium
       @text = (@msg.text || @msg.caption).to_s
       @message_id = @msg.message_id
       @command = get_command(@msg.text || @msg.caption)
-      @text_without_command = @text.gsub(@command.to_s, "").gsub(/@#{config.bot_username}\b/,
-                                                                 "").strip
-      @text_without_bot_mentions = @text.gsub(/@#{config.bot_username}\b/, "")
+      @text_without_command = @text.gsub(@command.to_s, '').gsub(/@#{config.bot_username}\b/,
+                                                                 '').strip
+      @text_without_bot_mentions = @text.gsub(/@#{config.bot_username}\b/, '')
     end
 
     def handle_update

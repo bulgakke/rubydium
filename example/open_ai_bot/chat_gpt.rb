@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "chat_thread"
+require_relative 'chat_thread'
 
 module ChatGPT
   module ClassMethods
@@ -37,13 +37,13 @@ module ChatGPT
     return if self.class.registered_commands.keys.any? { @text.match? Regexp.new(_1) }
     return unless bot_mentioned? || bot_replied_to? || private_chat?
 
-    if !allowed_chat?
+    unless allowed_chat?
       msg = "This chat (`#{@chat.id}`) is not whitelisted for ChatGPT usage. Ask @#{config.owner_username}."
-      return reply(msg, parse_mode: "Markdown")
+      return reply(msg, parse_mode: 'Markdown')
     end
 
     text = @text_without_bot_mentions
-    text = nil if text.gsub(/\s/, "").empty?
+    text = nil if text.gsub(/\s/, '').empty?
 
     target_text = @replies_to&.text || @replies_to&.caption
     target_text = nil if @target&.username == config.bot_username
@@ -74,18 +74,19 @@ module ChatGPT
         attempt(3) do
           response = open_ai.chat(
             parameters: {
-              model: "gpt-3.5-turbo",
+              model: 'gpt-3.5-turbo',
               messages: thread.history
             }
           )
 
-          if response["error"]
-            error_text = response["error"]["message"]
-            error_text += "\n\nHint: press /start to reset the context." if error_text.match? "tokens"
-            raise Net::ReadTimeout, response["error"]["message"]
+          if response['error']
+            error_text = response['error']['message']
+            "#{error_text}\n\nHint: press /start to reset the context." if error_text.match? 'tokens'
+            raise Net::ReadTimeout, response['error']['message']
           else
-            text = response.dig("choices", 0, "message", "content")
-            puts "#{Time.now.to_i} | Chat ID: #{@chat.id}, tokens used: #{response.dig("usage", "total_tokens")}"
+            text = response.dig('choices', 0, 'message', 'content')
+            puts "#{Time.now.to_i} | Chat ID: #{@chat.id}, tokens used: #{response.dig('usage',
+                                                                                       'total_tokens')}"
 
             reply(text)
             thread.add!(:assistant, text)

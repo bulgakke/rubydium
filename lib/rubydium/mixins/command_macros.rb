@@ -46,8 +46,8 @@ module Rubydium
 
         def on_mention(method_name=nil, ignore_forwarded: true, &block)
           @registered_on_mention ||= []
-          action = (method_name || block)
-          raise ArgumentError, "Provide either method name or a block" unless action
+          action = method_name || block
+          raise ArgumentError, 'Provide either method name or a block' unless action
 
           @registered_on_mention << {
             action: action,
@@ -61,8 +61,8 @@ module Rubydium
 
         def on_every_message(method_name=nil, ignore_forwarded: true, &block)
           @registered_on_every_message ||= []
-          action = (method_name || block)
-          raise ArgumentError, "Provide either method name or a block" unless action
+          action = method_name || block
+          raise ArgumentError, 'Provide either method name or a block' unless action
 
           @registered_on_every_message << {
             action: action,
@@ -74,10 +74,11 @@ module Rubydium
           @registered_on_every_message ||= []
         end
 
-        def on_command(command, method_name=nil, aliases: [], description: nil, ignore_forwarded: true, &block)
+        def on_command(command, method_name=nil, aliases: [], description: nil,
+                       ignore_forwarded: true, &block)
           @registered_commands ||= {}
-          action = (method_name || block)
-          raise ArgumentError, "Provide either method name or a block" unless action
+          action = method_name || block
+          raise ArgumentError, 'Provide either method name or a block' unless action
 
           parameters = {
             action: action,
@@ -86,9 +87,9 @@ module Rubydium
           }
 
           @registered_commands.merge!(
-            [command, *aliases].map { |comm|
+            [command, *aliases].to_h do |comm|
               [comm, parameters]
-            }.to_h
+            end
           )
         end
 
@@ -99,13 +100,13 @@ module Rubydium
 
       def skip_task(**kwargs)
         kwargs.each_pair do |task_type, task_name|
-
         end
       end
 
       def execute_on_every_message
         self.class.registered_on_every_message.each do |action|
           next if action[:ignore_forwarded] && @msg.forward_date
+
           execute_action(action[:action])
         end
       end
@@ -113,6 +114,7 @@ module Rubydium
       def execute_on_mention
         self.class.registered_on_mention.each do |action|
           next if action[:ignore_forwarded] && @msg.forward_date
+
           execute_action(action[:action])
         end
       end

@@ -21,10 +21,10 @@ class ChatThread
   attr_reader :history
 
   def add!(role, content)
-    return if [role, content].any? { [nil, ""].include?(_1) }
+    return if [role, content].any? { [nil, ''].include?(_1) }
 
     @history.push({
-                    role: role, content: content.gsub(/\\xD\d/, "")
+                    role: role, content: content.gsub(/\\xD\d/, '')
                   })
   end
 

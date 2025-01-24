@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rubydium
   module Mixins
     module OtherActions
@@ -14,7 +16,7 @@ module Rubydium
         return false unless bot_can_delete_messages? || from_bot
 
         result = @api.delete_message(chat_id: @chat.id, message_id: id)
-        result["ok"]
+        result['ok']
       rescue Telegram::Bot::Exceptions::ResponseError
         false
       end
@@ -22,12 +24,10 @@ module Rubydium
       def definitely_message(maybe_message)
         return maybe_message if maybe_message.is_a? Telegram::Bot::Types::Message
 
-        if maybe_message["message_id"]
+        if maybe_message['message_id']
           Telegram::Bot::Types::Message.new(maybe_message)
-        elsif maybe_message["result"]["message_id"]
-          Telegram::Bot::Types::Message.new(maybe_message["result"])
-        else
-          nil
+        elsif maybe_message['result']['message_id']
+          Telegram::Bot::Types::Message.new(maybe_message['result'])
         end
       rescue StandardError
         nil

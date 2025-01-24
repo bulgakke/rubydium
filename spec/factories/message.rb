@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :message, class: "Telegram::Bot::Types::Message" do
+  factory :message, class: 'Telegram::Bot::Types::Message' do
     sequence :message_id
 
     chat
