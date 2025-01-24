@@ -1,3 +1,4 @@
 rubydium-*.gem
 test.rb
 /temp/
+spec/examples.txt

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :chat, class: 'Telegram::Bot::Types::Chat' do
-    sequence :id
+  factory :update, class: 'Telegram::Bot::Types::Update' do
+    sequence :update_id
 
-    type { 'supergroup' }
+    message
 
     initialize_with { new(**attributes) }
     skip_create

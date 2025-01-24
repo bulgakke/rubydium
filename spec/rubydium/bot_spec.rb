@@ -14,7 +14,7 @@ RSpec.describe Rubydium::Bot do
       bot_class.on_command '/start', :some_method, description: 'Says hello'
       bot_class.on_command '/help', :some_method, description: 'Shows help message'
 
-      help = bot.send(:help_message)
+      help = bot_class.send(:help_message)
       expect(help).to eq <<~MSG.strip
         /start - Says hello
         /help - Shows help message

@@ -8,5 +8,6 @@ FactoryBot.define do
     date { Time.now.to_i }
 
     initialize_with { new(**attributes) }
+    skip_create
   end
 end

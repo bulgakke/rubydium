@@ -2,7 +2,6 @@
 
 RSpec.describe Rubydium::Mixins::ControlFlow do
   let(:client) { instance_double(Telegram::Bot::Client) }
-  let(:user) { instance_double(Telegram::Bot::Types::User) }
 
   describe '#must_be_owner' do
     let(:bot_class) do
@@ -15,24 +14,32 @@ RSpec.describe Rubydium::Mixins::ControlFlow do
       end
       klass
     end
+
     let(:message) { create_message(text: '/drop_database', from: user) }
+
     let(:bot) do
       allow(client).to receive :api
       bot_class.new(client, message)
     end
 
-    it 'allows owner to do things' do
-      allow(user).to receive(:to_hash).and_return({ username: 'owner' })
-      expect(bot).to receive :drop_database
+    context 'when message is from owner' do
+      let(:user) { create(:user, username: 'owner') }
 
-      bot.handle_update
+      it 'allows owner to do things' do
+        expect(bot).to receive :drop_database
+
+        bot.handle_update
+      end
     end
 
-    it "doesn't allow not-owners to do things" do
-      allow(user).to receive(:to_hash).and_return({ username: 'not_owner' })
-      expect(bot).to receive :not_from_owner
+    context 'when message is not from owner' do
+      let(:user) { create(:user, username: 'not_owner') }
 
-      bot.handle_update
+      it "doesn't allow not-owners to do things" do
+        expect(bot).to receive :not_from_owner
+
+        bot.handle_update
+      end
     end
   end
 
