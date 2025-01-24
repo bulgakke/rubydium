@@ -105,7 +105,7 @@ module Rubydium
 
       def execute_on_every_message
         self.class.registered_on_every_message.each do |action|
-          next if action[:ignore_forwarded] && @msg.forward_date
+          next if action[:ignore_forwarded] && @msg.forward_origin
 
           execute_action(action[:action])
         end
@@ -113,7 +113,7 @@ module Rubydium
 
       def execute_on_mention
         self.class.registered_on_mention.each do |action|
-          next if action[:ignore_forwarded] && @msg.forward_date
+          next if action[:ignore_forwarded] && @msg.forward_origin
 
           execute_action(action[:action])
         end
@@ -122,7 +122,7 @@ module Rubydium
       def execute_command
         command = self.class.registered_commands[@command]
         return unless command
-        return if command[:ignore_forwarded] && @msg.forward_date
+        return if command[:ignore_forwarded] && @msg.forward_origin
 
         action = command[:action]
 

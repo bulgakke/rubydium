@@ -11,7 +11,7 @@ module Rubydium
 
     def self.fetch_and_set_bot_id(client)
       configure do |config|
-        config.bot_id = client.api.get_me.dig('result', 'id') unless config.respond_to? :bot_id
+        config.bot_id = client.api.get_me.id unless config.respond_to? :bot_id
       end
     end
 
