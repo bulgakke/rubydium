@@ -20,22 +20,17 @@ module Rubydium
         fetch_and_set_bot_id(client)
 
         Async do |task|
-          Signal.trap('INT') do
-            client.stop
-          end
-
           client.listen do |update|
             task.async do
               # Not all `update`s here are messages (`listen` yields `Update#current_message`,
               # which can be `ChatMemberUpdated` etc.)
               # TODO: rework to allow for clean handling of other types.
-              if update.is_a?(Telegram::Bot::Types::Message) || update.is_a?(Telegram::Bot::Types::CallbackQuery)
+              if update.is_a? Telegram::Bot::Types::Message
                 new(client, update).handle_update
               end
+            rescue StandardError => e
+              puts e.detailed_message, e.backtrace
             end
-          rescue StandardError => e
-            puts e.detailed_message, e.backtrace
-            retry
           end
         end
       end
