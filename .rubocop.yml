@@ -6,8 +6,8 @@ AllCops:
   Exclude:
    - test.rb
 
-FactoryBot/IdSequence:
-  Enabled: false
+# FactoryBot/IdSequence:
+#   Enabled: false
 
 Layout/LineLength:
   Max: 100
