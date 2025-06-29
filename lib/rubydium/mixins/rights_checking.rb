@@ -8,10 +8,10 @@ module Rubydium
         return @user_info[user_id] if @user_info[user_id]
 
         @user_info[user_id] =
-          @api.get_chat_member(chat_id: @chat.id, user_id: user_id)['result']
+          @api.get_chat_member(chat_id: @chat.id, user_id: user_id)
       end
 
-      boolean_permissions = %w[
+      boolean_permissions = %i[
         can_be_edited
         can_manage_chat
         can_change_info
@@ -28,7 +28,7 @@ module Rubydium
 
       boolean_permissions.each do |permission|
         define_method "#{permission}?" do |user_id|
-          user_info(user_id)[permission] || user_info(user_id)['status'] == 'creator'
+          user_info(user_id)[permission] || user_info(user_id)[:status] == 'creator'
         end
 
         define_method "bot_#{permission}?" do
@@ -36,7 +36,7 @@ module Rubydium
         end
       end
 
-      other_fields = %w[status custom_title]
+      other_fields = %i[status custom_title]
 
       other_fields.each do |field|
         define_method field do |user_id|

@@ -15,8 +15,7 @@ module Rubydium
       def safe_delete_by_id(id, from_bot: false)
         return false unless bot_can_delete_messages? || from_bot
 
-        result = @api.delete_message(chat_id: @chat.id, message_id: id)
-        result['ok']
+        @api.delete_message(chat_id: @chat.id, message_id: id)
       rescue Telegram::Bot::Exceptions::ResponseError
         false
       end
